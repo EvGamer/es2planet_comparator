@@ -49,7 +49,7 @@ const PLANET_PRESETS = {
     }
   },
   harsh: {
-    biosphere: mundane,
+    biosphere: BiosphereType.mundane,
     happiness: -1,
     popCapacityBySize: {
       [PlanetSize.tiny]: 5, 
