@@ -73,7 +73,7 @@ const PLANET_PRESETS = {
   },
   terrestrial: {
     biosphere: BiosphereType.fertile,
-    hapiness: 0,
+    happiness: 0,
     food: 8,
     dust: 4,
     popCapacityBySize: {

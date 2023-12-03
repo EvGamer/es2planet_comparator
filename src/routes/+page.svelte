@@ -1,13 +1,18 @@
 <script>
+    import { PlanetSize } from '../constants/planetSize';
   import { PLANET_STATS } from '../constants/planetStats';
   
   let lastPlanetId = 0;
+  let planetSize = PlanetSize.huge;
 
   let selectedPlanets = [];
 
   const addPlanet = (planet) => {
     selectedPlanets = [...selectedPlanets, planet];
   }
+
+  const getTotal = (stats, stat) => 
+    stats.popCapacityBySize[planetSize] * stat;
 
   const planetOptions = Object.entries(PLANET_STATS)
     .map(([name, stats]) => ({ name, stats }))
@@ -17,14 +22,13 @@
   <aside class="planet-types">
     <h3>Planet types</h3>
     {#each planetOptions as planet}
-      <div 
+      <button
         key={planet.name}
         class="option"
-        role="button"
         on:click={() => addPlanet(planet)}
       >
         {planet.name}
-      </div>
+      </button>
     {/each}
   </aside>
   <main>
@@ -43,10 +47,26 @@
             <div class="cell row-name per-pop">Per pop</div>
             <div class="cell food per-pop">{stats.food}</div>
             <div class="cell industry per-pop">{stats.industry}</div>
-            <div class="cell dust per-pop">{stats.industry}</div>
+            <div class="cell dust per-pop">{stats.dust}</div>
             <div class="cell science per-pop">{stats.science}</div>
-            <div class="cell pop per-pop">{stats.popCapacityBySize.huge}</div>
+            <div class="cell pop per-pop">{stats.popCapacityBySize[planetSize]}</div>
             <div class="cell moral per-pop">{stats.happiness}</div>
+            <div class="cell row-name total">Total</div>
+            <div class="cell food total">
+              {getTotal(stats, stats.food)}
+            </div>
+            <div class="cell industry total">
+              {getTotal(stats, stats.industry)}
+            </div>
+            <div class="cell dust total">
+              {getTotal(stats, stats.dust)}
+            </div>
+            <div class="cell science total">
+              {getTotal(stats, stats.science)}
+            </div>
+            <div class="cell moral total">
+              {getTotal(stats, stats.happiness)}
+            </div>
           </div>
         </div>
       {/each}
@@ -56,6 +76,20 @@
 </div>
 
 <style>
+  button {
+    border: none;
+    appearance: none;
+    background: #222328;
+    color: #d0cbad;
+    font-size: 1em;
+    transition: 50ms cubic-bezier(0.445, 0.05, 0.55, 0.95) background-color;
+    cursor: pointer;
+  }
+
+  .button:hover {
+    padding: 5px 10px;
+  }
+
   .container {
     background: #222328;
     color: #d0cbad;
@@ -76,9 +110,7 @@
   }
 
   .planet-types .option {
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: 50ms cubic-bezier(0.445, 0.05, 0.55, 0.95) background-color;
+    width: 100%;
   }
   
   .planet-types .option:hover {
@@ -110,7 +142,8 @@
       [capacity] 1fr;
     grid-template-rows:
       [header] auto
-      [per-pop] auto;
+      [per-pop] auto
+      [total] auto;
   }
 
   .comparison .card .stats .cell.row-name{
@@ -147,5 +180,9 @@
 
   .comparison .card .stats .cell.per-pop{
     grid-row: per-pop;
+  }
+
+  .comparison .card .stats .cell.total{
+    grid-row: total;
   }
 </style>
