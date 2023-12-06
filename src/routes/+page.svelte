@@ -1,6 +1,13 @@
 <script>
   import PlanetCard from '../components/PlanetCard.svelte';
   import PlanetTypeList from '../components/PlanetTypeList.svelte';
+  import TabContainer from '../components/TabContainer.svelte';
+  import TabContent from '../components/TabContent.svelte';
+
+  const tabs = [
+    { id: "planets", name: "Planets" },
+    { id: "improvements", name: "Improvements" },
+  ]
 
   let lastPlanetId = 0;
 
@@ -23,7 +30,16 @@
 <div class="container">
   <aside class="planet-types">
     <h3>Planet types</h3>
-    <PlanetTypeList on:add={handleAddPlanet} />
+    <TabContainer
+      tabs={tabs}
+    >
+      <TabContent id="planets">
+        <PlanetTypeList on:add={handleAddPlanet} />
+      </TabContent>
+      <TabContent id="improvements">
+        <div slot="improvements">Improvements</div>
+      </TabContent>
+    </TabContainer>
   </aside>
   <main>
     <h3>Planet comparison</h3>
@@ -43,10 +59,11 @@
 
 <style>
   .container {
-    background: #222328;
-    color: #d0cbad;
     display: flex;
     font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+    min-height: 100%;
+    color: var(--text-color);
   }
 
   .container>main {
@@ -56,6 +73,10 @@
 
   .container>aside {
     flex: 1;
+  }
+
+  .planet-types {
+    padding-left: 10px;
   }
 
 

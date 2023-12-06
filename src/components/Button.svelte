@@ -1,8 +1,13 @@
 <script>
   export let text = '';
+  export let active = false
 </script>
 
-<button class="button" on:click>
+<button
+  class="button"
+  class:active={active}
+  on:click
+>
   {text}
 </button>
 
@@ -11,8 +16,8 @@
   .button {
     border: none;
     appearance: none;
-    background: #2e2f36;
-    color: #d0cbad;
+    background: var(--secondary-bg-color);
+    color: var(--text-color);
     font-size: 1em;
     transition: 50ms cubic-bezier(0.445, 0.05, 0.55, 0.95) background-color;
     cursor: pointer;
@@ -20,10 +25,11 @@
   }
 
   .button:hover {
-    background: #444550;
+    background: var(--secondary-hover-bg-color);
   }
 
-  .button:active {
-    background: #62636a;
+
+  .button:active, .button.active {
+    background: var(--secondary-active-bg-color);
   }
 </style>

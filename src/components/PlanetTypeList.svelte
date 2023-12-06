@@ -39,6 +39,7 @@
     display: grid;
     grid-template-columns: repeat(2, max-content);
     grid-gap: 5px 10px;
+    margin-top: 10px;
   }
 
   .option {
