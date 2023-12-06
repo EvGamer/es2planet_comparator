@@ -5,7 +5,6 @@
   import { PLANET_STATS } from '../constants/planetStats';
 
   let lastPlanetId = 0;
-  let planetSize = PlanetSize.huge;
 
   let comparedPlanets = [];
 
@@ -14,8 +13,10 @@
       ...comparedPlanets,
       { id: lastPlanetId++, type: planetType, size }
     ];
+  }
 
-    console.log(comparedPlanets);
+  const removePlanet = (id) => {
+    comparedPlanets = comparedPlanets.filter(planet => planet.id !== id);
   }
 
   const planetOptions = Object.entries(PLANET_STATS)
@@ -59,6 +60,7 @@
           key={id}
           planetType={type}
           size={size}
+          on:remove={() => removePlanet(id)}
         />
       {/each}
     </div>
@@ -76,6 +78,7 @@
 
   .container>main {
     flex: 2;
+    margin: 0 10px
   }
 
   .container>aside {
@@ -85,7 +88,7 @@
   .planet-types .list{
     display: grid;
     grid-template-columns: repeat(2, max-content);
-    grid-gap: 10px;
+    grid-gap: 5px 10px;
   }
 
   .planet-types .option {
@@ -96,7 +99,7 @@
 
   .planet-types .option .sizes {
     display: flex;
-    gap: 10px;
+    gap: 5px;
   }
 
   .planet-types .option .title {
