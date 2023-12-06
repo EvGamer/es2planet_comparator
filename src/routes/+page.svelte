@@ -14,6 +14,8 @@
       ...comparedPlanets,
       { id: lastPlanetId++, type: planetType, size }
     ];
+
+    console.log(comparedPlanets);
   }
 
   const planetOptions = Object.entries(PLANET_STATS)
@@ -25,27 +27,29 @@
     { text: "M", size: PlanetSize.medium },
     { text: "L", size: PlanetSize.large },
     { text: "XL", size: PlanetSize.huge }
-  ]
+  ];
+
 </script>
 
 <div class="container">
   <aside class="planet-types">
     <h3>Planet types</h3>
-    {#each planetOptions as planet}
-      <div
-        key={planet.name}
-        class="option"
-        on:click={() => addPlanet(planet)}
-      >
-        <div class="title">{planet.type}</div>
+    <div class="list">
+      {#each planetOptions as planet}
+        <div
+          key={planet.name}
+          class="option"
+        >
+          <div class="title">{planet.type}</div>
 
-        <div class="sizes">
-          {#each availableSizes as { text, size }}
-            <Button text={text} on:click={() => addPlanet(planet.type, size)}/>
-          {/each}
+          <div class="sizes">
+            {#each availableSizes as { text, size }}
+              <Button text={text} on:click={() => addPlanet(planet.type, size)}/>
+            {/each}
+          </div>
         </div>
-      </div>
-    {/each}
+      {/each}
+    </div>
   </aside>
   <main>
     <h3>Planet comparison</h3>
@@ -78,19 +82,25 @@
     flex: 1;
   }
 
-  .planet-types {
-    max-width: 300px;
+  .planet-types .list{
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    grid-gap: 10px;
   }
 
   .planet-types .option {
     width: 100%;
-    display: flex;
+    display: contents;
     align-items: center;
-    gap: 10px;
   }
 
   .planet-types .option .sizes {
+    display: flex;
     gap: 10px;
+  }
+
+  .planet-types .option .title {
+    align-self: center;
   }
 
 </style>
