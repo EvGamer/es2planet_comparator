@@ -220,6 +220,24 @@ export const SYSTEM_IMPROVEMENTS = [
     ]
   },
 
+  {
+    id: "burrows",
+    name: "Burrows",
+    upkeep: 32,
+    tier: 4,
+    cost: {
+      [ResourceType.industry]: 2240,
+    },
+    bonuses: [
+      {
+        resource: ResourceType.maxPopCapacity,
+        type: BonusType.perPlanet,
+        value: 2,
+        condition: BonusConditionType.planetIsSterile,
+      }
+    ]
+  },
+
   /*{
     id: "eco_habitats_horatio",
     replaces: "eco_habitats",
@@ -351,9 +369,9 @@ export const SYSTEM_IMPROVEMENTS = [
     ]
   },
 
-  {
+  /*{
     id: "lunar_suburbs",
-    name: "Deep Atmosphere Habitats",
+    name: "Lunar Suburbs",
     upkeep: 64,
     tier: 5,
     cost: {
@@ -367,7 +385,8 @@ export const SYSTEM_IMPROVEMENTS = [
         condition: BonusConditionType.planetHasMoon,
       },
     ]
-  },
+  },*/
+/*
 
   {
     id: "school_of_geniuses",
@@ -416,6 +435,7 @@ export const SYSTEM_IMPROVEMENTS = [
       },
     ]
   },
+*/
 
   {
     id: "microwave_pipes",

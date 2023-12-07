@@ -1,11 +1,11 @@
-import { PlanetTypes } from './planetTypes'; 
+import { PlanetTypes } from './planetTypes';
 import { PlanetSize } from './planetSize';
 import { BiosphereType } from './biosphereType';
 import { ClimateTemp } from './climateTemp';
 
 const PLANET_PRESETS = {
   gasGiant: {
-    biosphere: BiosphereType.mundane,
+    biosphere: BiosphereType.gasGiant,
     happiness: -5,
     food: 0,
     popCapacityBySize: {
@@ -19,7 +19,7 @@ const PLANET_PRESETS = {
     happiness: -8,
     food: 0,
     popCapacityBySize: {
-      [PlanetSize.tiny]: 1, 
+      [PlanetSize.tiny]: 1,
       [PlanetSize.small]: 2,
       [PlanetSize.medium]: 3,
       [PlanetSize.large]: 4,
@@ -31,7 +31,7 @@ const PLANET_PRESETS = {
     happiness: -5,
     food: 0,
     popCapacityBySize: {
-      [PlanetSize.tiny]: 2, 
+      [PlanetSize.tiny]: 2,
       [PlanetSize.small]: 3,
       [PlanetSize.medium]: 4,
       [PlanetSize.large]: 5,
@@ -41,7 +41,7 @@ const PLANET_PRESETS = {
   desert: {
     happiness: -3,
     popCapacityBySize: {
-      [PlanetSize.tiny]: 3, 
+      [PlanetSize.tiny]: 3,
       [PlanetSize.small]: 4,
       [PlanetSize.medium]: 5,
       [PlanetSize.large]: 6,
@@ -52,7 +52,7 @@ const PLANET_PRESETS = {
     biosphere: BiosphereType.mundane,
     happiness: -1,
     popCapacityBySize: {
-      [PlanetSize.tiny]: 5, 
+      [PlanetSize.tiny]: 5,
       [PlanetSize.small]: 6,
       [PlanetSize.medium]: 7,
       [PlanetSize.large]: 8,
@@ -64,7 +64,7 @@ const PLANET_PRESETS = {
     happiness: 0,
     food: 6,
     popCapacityBySize: {
-      [PlanetSize.tiny]: 5, 
+      [PlanetSize.tiny]: 5,
       [PlanetSize.small]: 6,
       [PlanetSize.medium]: 7,
       [PlanetSize.large]: 8,
@@ -146,20 +146,20 @@ export const PLANET_STATS = {
 
   [PlanetTypes.arid]: {
     ...PLANET_PRESETS.desert,
-    temperature: ClimateTemp.cold,
+    temperature: ClimateTemp.hot,
     biosphere: BiosphereType.mundane,
     food: 2, industry: 8, dust: 4, science: 0,
   },
 
   [PlanetTypes.mediterranian]: {
     ...PLANET_PRESETS.harsh,
-    temperature: ClimateTemp.cold,
+    temperature: ClimateTemp.hot,
     food: 6, industry: 6, dust: 3, science: 0,
   },
 
   [PlanetTypes.jungle]: {
     ...PLANET_PRESETS.hospitable,
-    temperature: ClimateTemp.cold,
+    temperature: ClimateTemp.hot,
     industry: 5, dust: 3, science: 0,
   },
 

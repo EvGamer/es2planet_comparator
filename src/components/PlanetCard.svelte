@@ -1,27 +1,69 @@
 <script>
   import { createEventDispatcher } from 'svelte';
+  import { BonusType } from '../constants/bonusType';
   import { PlanetSize } from '../constants/planetSize';
   import { PLANET_STATS } from '../constants/planetStats';
   import { PlanetTypes } from '../constants/planetTypes';
+  import { ResourceType } from '../constants/resourceType';
+  import { sumImprovementBonuses } from '../lib/sumImprovmentBonuses';
   import ButtonRemove from './ButtonRemove.svelte';
+  import PlanetCardCell from './PlanetCardCell.svelte';
 
   const dispatch = createEventDispatcher();
 
   export let planetType = PlanetTypes.terran;
   export let size = PlanetSize.medium;
+  export let systemImprovements = [];
 
-  const stats = PLANET_STATS[planetType]
+  const planet = PLANET_STATS[planetType];
   const {
     food,
     industry,
     dust,
     science,
     happiness,
-  } = PLANET_STATS[planetType];
+  } = planet;
 
-  const maxPop = stats.popCapacityBySize[size]
+  const maxPopCapacity = planet.popCapacityBySize[size];
 
-  const getTotal = (statName) => maxPop * stats[statName];
+  const displayedResources = [
+    ResourceType.food,
+    ResourceType.industry,
+    ResourceType.dust,
+    ResourceType.science,
+    ResourceType.happiness,
+  ]
+
+  const l = v => {
+    console.log(v);
+    return v;
+  }
+
+  $: perPopImprovmentBonus = displayedResources.map(
+    (resource) => ({
+      type: resource,
+      value: sumImprovementBonuses(
+        systemImprovements,
+        planet,
+        resource,
+        BonusType.perPop
+      )
+    })
+  );
+
+  $: popCapacityBonus = sumImprovementBonuses(
+    systemImprovements,
+    planet,
+    ResourceType.maxPopCapacity,
+    BonusType.perPlanet,
+  );
+
+  $: totalPopCapacity = maxPopCapacity + popCapacityBonus;
+
+  $: perPopTotal = displayedResources.map((resource, i) => ({
+    type: resource,
+    value: perPopImprovmentBonus[i].value + planet[resource],
+  }))
 </script>
 
 <div class="card">
@@ -30,25 +72,44 @@
     <ButtonRemove on:click={() => dispatch('remove')}/>
   </div>
   <div class="stats">
-    <div class="cell food header">Food</div>
-    <div class="cell industry header">Industry</div>
-    <div class="cell dust header">Dust</div>
-    <div class="cell science header">Science</div>
-    <div class="cell pop header">Capacity</div>
-    <div class="cell moral header">Happiness</div>
-    <div class="cell row-name per-pop">Per pop</div>
-    <div class="cell food per-pop">{food}</div>
-    <div class="cell industry per-pop">{industry}</div>
-    <div class="cell dust per-pop">{dust}</div>
-    <div class="cell science per-pop">{science}</div>
-    <div class="cell pop per-pop">{maxPop}</div>
-    <div class="cell moral per-pop">{happiness}</div>
-    <div class="cell row-name total">Total</div>
-    <div class="cell food total">{getTotal("food")}</div>
-    <div class="cell industry total">{getTotal("industry")}</div>
-    <div class="cell dust total">{getTotal("dust")}</div>
-    <div class="cell science total">{getTotal("science")}</div>
-    <div class="cell moral total">{getTotal("happiness")}</div>
+    <div></div>
+    <PlanetCardCell>Food</PlanetCardCell>
+    <PlanetCardCell>Industry</PlanetCardCell>
+    <PlanetCardCell>Dust</PlanetCardCell>
+    <PlanetCardCell>Science</PlanetCardCell>
+    <PlanetCardCell>Happiness</PlanetCardCell>
+    <PlanetCardCell>Capacity</PlanetCardCell>
+
+    <PlanetCardCell>Per pop</PlanetCardCell>
+    {#each displayedResources as type}
+      <PlanetCardCell key={type} type={type}>
+        {planet[type]}
+      </PlanetCardCell>
+    {/each}
+    <PlanetCardCell type="maxPopCapacity">
+      {maxPopCapacity}
+    </PlanetCardCell>
+
+
+    <PlanetCardCell>With improvements</PlanetCardCell>
+    {#each perPopTotal as { value, type }}
+      <PlanetCardCell key={type} type={type}>
+        {value}
+      </PlanetCardCell>
+    {/each}
+    <PlanetCardCell type="maxPopCapacity">
+      {popCapacityBonus}
+    </PlanetCardCell>
+
+    <PlanetCardCell type="row-name">Total</PlanetCardCell>
+    {#each perPopTotal as { value, type }}
+      <PlanetCardCell key={type} type={type}>
+        {value * totalPopCapacity}
+      </PlanetCardCell>
+    {/each}
+    <PlanetCardCell type="maxPopCapacity">
+      {totalPopCapacity}
+    </PlanetCardCell>
   </div>
 </div>
 
@@ -77,72 +138,5 @@
       [science] 1fr
       [happiness] 1fr
       [capacity] 1fr;
-    grid-template-rows:
-      [header] auto
-      [per-pop] auto
-      [total] auto;
-  }
-
-  .cell.row-name{
-    grid-column: row-name;
-  }
-
-  .cell.food{
-    grid-column: food;
-  }
-
-  .cell:not(.header):not(.row-name) {
-    justify-self: end;
-  }
-
-  .cell.food:not(.header) {
-    color: #addb61;
-  }
-
-  .cell.industry{
-    grid-column: industry;
-  }
-  .cell.industry:not(.header) {
-    color: #efb352;
-  }
-
-  .cell.dust{
-    grid-column: dust;
-  }
-  .cell.dust:not(.header) {
-    color: #fff674;
-  }
-
-  .cell.science{
-    grid-column: science;
-  }
-  .cell.science:not(.header) {
-    color: #8ed2eb;
-  }
-
-  .cell.moral {
-    grid-column: happiness;
-  }
-  .cell.moral:not(.header) {
-    color: #ffb2e5;
-  }
-
-  .cell.pop {
-    grid-column: capacity;
-  }
-  .cell.pop:not(.header) {
-    color: #c7c7c7;
-  }
-
-  .cell.header {
-    grid-row: header;
-  }
-
-  .cell.per-pop{
-    grid-row: per-pop;
-  }
-
-  .cell.total{
-    grid-row: total;
   }
 </style>

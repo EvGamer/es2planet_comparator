@@ -1,6 +1,6 @@
 <script>
-  import SystemImprovment from './SystemImprovment.svelte';
-  import SystemImprovement  from './SystemImprovment.svelte';
+  import SystemImprovment from './SystemImprovement.svelte';
+  import SystemImprovement  from './SystemImprovement.svelte';
   import { createEventDispatcher } from 'svelte';
   import { SYSTEM_IMPROVEMENTS } from '../constants/systemImprovements';
   import ButtonRemove from './ButtonRemove.svelte';

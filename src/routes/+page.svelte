@@ -68,6 +68,7 @@
           key={id}
           planetType={type}
           size={size}
+          systemImprovements={systemImprovements}
           on:remove={() => removePlanet(id)}
         />
       {/each}
