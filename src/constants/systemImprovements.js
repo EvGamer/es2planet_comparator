@@ -162,29 +162,6 @@ export const SYSTEM_IMPROVEMENTS = [
   },
 
   {
-    id: "fab_license",
-    name: "Fabrication License",
-    upkeep: 32,
-    tier: 4,
-    cost: {
-      [ResourceType.industry]: 2240,
-      [StrategicType.adamantium]: 25,
-    },
-    bonuses: [
-      {
-        resource: ResourceType.industry,
-        type: BonusType.percentile,
-        value: 10,
-      },
-      {
-        resource: ResourceType.industry,
-        type: BonusType.perPop,
-        value: 4,
-      }
-    ]
-  },
-
-  {
     id: "hazard_mine",
     name: "Hazardous Mining Facility",
     upkeep: 64,
@@ -436,6 +413,40 @@ export const SYSTEM_IMPROVEMENTS = [
         type: BonusType.perPop,
         value: 5,
         condition: BonusConditionType.planetHasNegativeAnomaly,
+      },
+    ]
+  },
+
+  {
+    id: "microwave_pipes",
+    name: "Microwave Pipes",
+    upkeep: 32,
+    tier: 4,
+    cost: {
+      [ResourceType.industry]: 2240,
+      [StrategicType.antimatter]: 10,
+      [StrategicType.adamantium]: 10,
+    },
+    bonuses: [
+      {
+        resource: ResourceType.food,
+        type: BonusType.perPop,
+        value: 2,
+      },
+      {
+        resource: ResourceType.industry,
+        type: BonusType.perPop,
+        value: 2,
+      },
+      {
+        resource: ResourceType.dust,
+        type: BonusType.perPop,
+        value: 2,
+      },
+      {
+        resource: ResourceType.science,
+        type: BonusType.perPop,
+        value: 2,
       },
     ]
   },

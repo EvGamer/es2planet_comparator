@@ -26,7 +26,7 @@
 
 <div class="card">
   <div class="title">
-    {size} {planetType}
+    <div class="text">{size} {planetType}</div>
     <ButtonRemove on:click={() => dispatch('remove')}/>
   </div>
   <div class="stats">
@@ -61,6 +61,9 @@
     font-size: 1.2em;
     margin-bottom: 5px;
     color: #fdfae7;
+    display: flex;
+    align-items: center;
+    gap: 0.2em;
   }
 
   .stats {

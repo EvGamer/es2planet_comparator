@@ -1,6 +1,7 @@
 <script>
   import PlanetCard from '../components/PlanetCard.svelte';
   import PlanetTypeList from '../components/PlanetTypeList.svelte';
+  import SystemImprovementsList from '../components/SystemImprovementsList.svelte';
   import TabContainer from '../components/TabContainer.svelte';
   import TabContent from '../components/TabContent.svelte';
 
@@ -12,6 +13,19 @@
   let lastPlanetId = 0;
 
   let comparedPlanets = [];
+  let systemImprovements = [];
+
+  const handleAddSystemImprovement = (event) => {
+    const { improvement } = event.detail;
+    systemImprovements = [...systemImprovements, improvement];
+  }
+
+  const handleRemoveSystemImprovement = (event) => {
+    const { id } = event.detail;
+    systemImprovements = systemImprovements.filter(
+      improvement => improvement.id !== id
+    )
+  }
 
   const handleAddPlanet = (event) => {
     const { type, size } = event.detail;
@@ -37,6 +51,11 @@
         <PlanetTypeList on:add={handleAddPlanet} />
       </TabContent>
       <TabContent id="improvements">
+        <SystemImprovementsList
+          selected={systemImprovements}
+          on:add={handleAddSystemImprovement}
+          on:remove={handleRemoveSystemImprovement}
+        />
         <div slot="improvements">Improvements</div>
       </TabContent>
     </TabContainer>
