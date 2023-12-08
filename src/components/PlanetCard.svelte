@@ -7,7 +7,7 @@
   import { PLANET_STATS } from '../constants/planetStats';
   import { PlanetTypes } from '../constants/planetTypes';
   import { ResourceType } from '../constants/resourceType';
-  import { sumImprovementBonuses } from '../lib/sumImprovmentBonuses';
+  import { sumBonuses, sumImprovementBonuses } from '../lib/sumBonuses';
   import ButtonRemove from './ButtonRemove.svelte';
   import PlanetCardCell from './PlanetCardCell.svelte';
 
@@ -39,17 +39,35 @@
     ResourceType.happiness,
   ]
 
-  $: perPopImprovmentBonus = displayedResources.map(
-    (resource) => ({
+  const mapResources = (resources, getValue) => resources.map(
+    (resource, i) => ({
       type: resource,
-      value: sumImprovementBonuses({
-        improvements: systemImprovements,
+      value: getValue(resource, i)
+    })
+  )
+
+  $: perPopImprovmentBonus = mapResources(
+    displayedResources,
+    (resource) => sumImprovementBonuses({
+      improvements: systemImprovements,
+      planet,
+      resource,
+      bonusType: BonusType.perPop
+    }),
+  )
+
+  $: perPopSpecializationBonuses = mapResources(
+    displayedResources,
+    (resource) => (planetSpecialization
+      ? sumBonuses({
+        bonuses: planetSpecialization.bonuses,
         planet,
         resource,
-        bonusType: BonusType.perPop
+        bonusType: BonusType.perPop,
       })
-    })
-  );
+      : 0
+    ),
+  )
 
   $: popCapacityBonus = sumImprovementBonuses({
     improvements: systemImprovements,
@@ -60,10 +78,14 @@
 
   $: totalPopCapacity = maxPopCapacity + popCapacityBonus;
 
-  $: perPopTotal = displayedResources.map((resource, i) => ({
-    type: resource,
-    value: perPopImprovmentBonus[i].value + planet[resource],
-  }))
+  $: perPopTotal = mapResources(
+    displayedResources,
+    (resource, i) => (
+      perPopImprovmentBonus[i].value
+      + perPopSpecializationBonuses[i].value
+      + planet[resource]
+    ),
+  )
 </script>
 
 <div class="card">
