@@ -42,21 +42,21 @@
   $: perPopImprovmentBonus = displayedResources.map(
     (resource) => ({
       type: resource,
-      value: sumImprovementBonuses(
-        systemImprovements,
+      value: sumImprovementBonuses({
+        improvements: systemImprovements,
         planet,
         resource,
-        BonusType.perPop
-      )
+        bonusType: BonusType.perPop
+      })
     })
   );
 
-  $: popCapacityBonus = sumImprovementBonuses(
-    systemImprovements,
+  $: popCapacityBonus = sumImprovementBonuses({
+    improvements: systemImprovements,
     planet,
-    ResourceType.maxPopCapacity,
-    BonusType.perPlanet,
-  );
+    resource: ResourceType.maxPopCapacity,
+    bonusType: BonusType.perPlanet,
+  });
 
   $: totalPopCapacity = maxPopCapacity + popCapacityBonus;
 

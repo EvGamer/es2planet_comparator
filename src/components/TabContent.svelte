@@ -3,14 +3,9 @@
 
   export let id = null;
 
-  let isActive = false;
-
   const activeTabId = getContext("activeTabId");
-  onMount(() => {
-    activeTabId.subscribe((activeTabId) => {
-      isActive = id && id === activeTabId;
-    })
-  })
+
+  $: isActive = id && $activeTabId === id;
 </script>
 
 <div class:hidden={!isActive}>

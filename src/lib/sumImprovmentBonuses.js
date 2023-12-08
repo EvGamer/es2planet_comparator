@@ -1,6 +1,11 @@
 import { isBonusConditionMet } from './isBonusConditionMet';
 
-export const sumImprovementBonuses = (improvements, planet, resource, bonusType) => improvements
+export const sumImprovementBonuses = ({
+  improvements,
+  planet,
+  resource,
+  bonusType
+}) => improvements
   .flatMap(improvement => improvement.bonuses)
   .filter(bonus => (
     bonus.type === bonusType

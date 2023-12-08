@@ -2,6 +2,7 @@ import { BonusConditionType } from './bonusConditionType';
 import { BonusType } from './bonusType';
 import { ResourceType } from './resourceType';
 import { StrategicType } from './strategicType';
+import { Faction } from './faction';
 
 export const SYSTEM_IMPROVEMENTS = [
   {
@@ -241,6 +242,7 @@ export const SYSTEM_IMPROVEMENTS = [
   /*{
     id: "eco_habitats_horatio",
     replaces: "eco_habitats",
+    faction: ,
     name: "Skyward Dwellings",
     upkeep: 16,
     tier: 3,
@@ -279,10 +281,11 @@ export const SYSTEM_IMPROVEMENTS = [
     ]
   },
 
-  /*{
+  {
     id: "graviton_lab_sophon",
     replaces: "graviton_lab",
     name: "Graviton-Shielded Laboratories",
+    faction: Faction.sophon,
     upkeep: 16,
     tier: 3,
     cost: {
@@ -301,7 +304,7 @@ export const SYSTEM_IMPROVEMENTS = [
         value: 50,
       }
     ]
-  },*/
+  },
 
   {
     id: "cosmetic_genetics",
