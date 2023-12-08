@@ -127,7 +127,7 @@ export const SYSTEM_IMPROVEMENTS = [
     bonuses: [
       {
         resource: ResourceType.tradeValue,
-        type: BonusType.percentile,
+        type: BonusType.systemPercentile,
         value: 25,
       },
       {
@@ -151,7 +151,7 @@ export const SYSTEM_IMPROVEMENTS = [
     bonuses: [
       {
         resource: ResourceType.industry,
-        type: BonusType.percentile,
+        type: BonusType.systemPercentile,
         value: 10,
       },
       {

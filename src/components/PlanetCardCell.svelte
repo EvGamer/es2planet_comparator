@@ -19,6 +19,7 @@
 <style>
   .cell {
     justify-self: end;
+    align-self: center;
   }
   .food {
     color: #addb61;
