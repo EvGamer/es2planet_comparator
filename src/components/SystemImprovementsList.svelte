@@ -117,9 +117,10 @@
 </div>
 
 <style>
-  .faction {
-    margin-bottom: 1px;
-    margin-top: 1px;
+  .container {
+    display: flex;
+    gap: 1px;
+    flex-direction: column;
   }
   .actions {
     display: flex;
