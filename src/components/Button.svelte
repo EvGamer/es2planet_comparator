@@ -2,7 +2,6 @@
   export let text = '';
   export let active = false;
   export let icon = null;
-  console.log("icon", icon);
 </script>
 
 <button

@@ -224,6 +224,7 @@ export const SYSTEM_IMPROVEMENTS = [
   {
     id: "burrows",
     name: "Burrows",
+    faction: Faction.riftborn,
     upkeep: 32,
     tier: 4,
     cost: {
