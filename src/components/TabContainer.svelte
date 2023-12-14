@@ -12,9 +12,10 @@
 
 <div class="container">
   <nav class="tabs">
-    {#each tabs as { name, id }}
+    {#each tabs as { name, id, icon }}
       <Button
         text={name}
+        icon={icon}
         active={$activeTabId === id}
         on:click={() => activeTabId.set(id)}
       >

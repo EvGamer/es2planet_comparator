@@ -1,6 +1,8 @@
 <script>
   export let text = '';
-  export let active = false
+  export let active = false;
+  export let icon = null;
+  console.log("icon", icon);
 </script>
 
 <button
@@ -8,12 +10,17 @@
   class:active={active}
   on:click
 >
+  {#if icon}
+    <svelte:component this={icon} />
+  {/if}
   {text}
 </button>
 
 
 <style>
   .button {
+    display: inline flex;
+    align-items: center;
     border: none;
     appearance: none;
     background: var(--secondary-bg-color);

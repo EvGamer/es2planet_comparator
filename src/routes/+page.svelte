@@ -4,10 +4,18 @@
   import SystemImprovementsList from '../components/SystemImprovementsList.svelte';
   import TabContainer from '../components/TabContainer.svelte';
   import TabContent from '../components/TabContent.svelte';
+  import Globe from '../components/icons/Globe.svelte';
+  import Building from '../components/icons/Building.svelte';
 
   const tabs = [
-    { id: "planets", name: "Planets" },
-    { id: "improvements", name: "Improvements" },
+    {
+      id: "planets",
+      icon: Globe,
+    },
+    {
+      id: "improvements",
+      icon: Building,
+    },
   ]
 
   let lastPlanetId = 0;
