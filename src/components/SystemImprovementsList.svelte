@@ -19,13 +19,10 @@
     const replacements = {};
 
     for (const improvement of improvements) {
-      if (
-        improvement.faction !== faction
-        || !improvements.replaces
-      ) {
-        continue;
-      }
-      replacements[improvement.replaces];
+      if (improvement.faction !== faction) continue;
+      if (!improvement.replaces) continue;
+
+      replacements[improvement.replaces] = improvement;
     }
 
     return replacements;
@@ -74,11 +71,14 @@
 
 <div class="container">
   <div class="faction">
-    <Select
-      placeholder="Select faction"
-      items={factionOptions}
-      bind:value={selectedFaction}
-    />
+    <div>Faction:</div>
+    <div class="select">
+      <Select
+        placeholder="Select faction"
+        items={factionOptions}
+        bind:value={selectedFaction}
+      />
+    </div>
   </div>
   <div class="actions">
     <Button
@@ -119,9 +119,22 @@
 <style>
   .container {
     display: flex;
+    align-items: stretch;
+    padding: 1px 0;
     gap: 1px;
     flex-direction: column;
   }
+
+  .faction {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .faction .select {
+    flex: 1;
+  }
+
   .actions {
     display: flex;
     gap: 1px;
