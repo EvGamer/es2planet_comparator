@@ -73,55 +73,6 @@
   </svelte:fragment>
 </ListTab>
 
-<!--
-<div class="container">
-  <div class="faction">
-    <div>Faction:</div>
-    <div class="select">
-      <Select
-        placeholder="Select faction"
-        items={factionOptions}
-        bind:value={selectedFaction}
-      />
-    </div>
-  </div>
-  <div class="actions">
-    <Button
-      text="Select all"
-      on:click={() => setList(availableImprovements)}
-    />
-    <Button
-      text="Select common"
-      on:click={() => setList(filterCommon(availableImprovements))}
-    />
-    <Button
-      text="Unselect all"
-      on:click={() => setList([])}
-    />
-  </div>
-  <div class="list">
-    {#each selected as improvement}
-      <SystemImprovement selected={true} improvement={improvement}>
-        <ButtonRemove
-          slot="action"
-          on:click={() => dispatch("remove", { id: improvement.id })}
-        />
-      </SystemImprovement>
-    {/each}
-    {#each unselected as improvement}
-      <SystemImprovment improvement={improvement}>
-        <IconButton
-          slot="action"
-          on:click={() => dispatch("add", { improvement })}
-        >
-          <Plus />
-        </IconButton>
-      </SystemImprovment>
-    {/each}
-  </div>
-</div>
--->
-
 <style>
   .container {
     display: flex;
