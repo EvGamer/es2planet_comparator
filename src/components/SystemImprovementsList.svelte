@@ -1,13 +1,8 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
   import Button from './Button.svelte';
-  import SystemImprovment from './SystemImprovement.svelte';
-  import SystemImprovement  from './SystemImprovement.svelte';
+  import ListTab from './ListTab.svelte';
   import { SYSTEM_IMPROVEMENTS } from '../constants/systemImprovements';
-  import ButtonRemove from './ButtonRemove.svelte';
-  import IconButton from './IconButton.svelte';
   import Select from './Select.svelte';
-  import Plus from './icons/Plus.svelte';
 
   const factionOptions = SYSTEM_IMPROVEMENTS
     .filter(improvement => improvement.faction)
@@ -45,30 +40,40 @@
     selectedFaction?.value,
   )
 
-  const dispatch = createEventDispatcher();
-
   export let selected = [];
 
-  function filterUnselected(improvements, selectedImprovements) {
-    const selectedIdSet = new Set(selectedImprovements.map(
-      improvement => improvement.id
-    ));
-    return improvements.filter((
-      improvement => !selectedIdSet.has(improvement.id)
-    ))
-  }
-
   function setList(list) {
-    dispatch("set-list", { list });
+    selected = list;
   }
 
   const filterCommon = (improvements) => improvements.filter(
     improvement => !improvement.faction
   )
-
-  $: unselected = filterUnselected(availableImprovements, selected);
 </script>
 
+<ListTab
+  items={availableImprovements}
+  bind:selected={selected}
+>
+  <div class="faction">
+    <div>Faction:</div>
+    <div class="select">
+      <Select
+        placeholder="Select faction"
+        items={factionOptions}
+        bind:value={selectedFaction}
+      />
+    </div>
+  </div>
+  <svelte:fragment slot="actions">
+    <Button
+      text="Select common"
+      on:click={() => setList(filterCommon(availableImprovements))}
+    />
+  </svelte:fragment>
+</ListTab>
+
+<!--
 <div class="container">
   <div class="faction">
     <div>Faction:</div>
@@ -115,6 +120,7 @@
     {/each}
   </div>
 </div>
+-->
 
 <style>
   .container {

@@ -1,10 +1,10 @@
 <script>
-  export let improvement = null;
+  export let item = null;
   export let selected = false;
 </script>
 
 <div class="improvement" class:selected={selected}>
-  <div class="cell name">{improvement.name}</div>
+  <div class="cell name">{item.name}</div>
   <div class="cell action">
     <slot name="action" />
   </div>

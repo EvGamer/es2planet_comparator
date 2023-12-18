@@ -23,23 +23,6 @@
   let comparedPlanets = [];
   let systemImprovements = [];
 
-  function handleAddSystemImprovement(event) {
-    const { improvement } = event.detail;
-    systemImprovements = [...systemImprovements, improvement];
-  }
-
-  function handleRemoveSystemImprovement(event) {
-    const { id } = event.detail;
-    systemImprovements = systemImprovements.filter(
-      improvement => improvement.id !== id
-    )
-  }
-
-  function handleSetSystemImprovementList(event) {
-    const { list } = event.detail;
-    systemImprovements = list;
-  }
-
   function handleAddPlanet(event) {
     const { type, size } = event.detail;
     comparedPlanets = [
@@ -65,10 +48,7 @@
       </TabContent>
       <TabContent id="improvements">
         <SystemImprovementsList
-          selected={systemImprovements}
-          on:add={handleAddSystemImprovement}
-          on:remove={handleRemoveSystemImprovement}
-          on:set-list={handleSetSystemImprovementList}
+          bind:selected={systemImprovements}
         />
         <div slot="improvements">Improvements</div>
       </TabContent>
