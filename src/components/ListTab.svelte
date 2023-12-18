@@ -31,6 +31,7 @@
     ))
   }
 
+  $: console.log('list tab selected', selected);
   $: unselected = filterUnselected(items, selected);
 </script>
 

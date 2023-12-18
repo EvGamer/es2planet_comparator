@@ -2,13 +2,9 @@
   import Button from './Button.svelte';
   import ListTab from './ListTab.svelte';
   import { SYSTEM_IMPROVEMENTS } from '../constants/systemImprovements';
-  import Select from './Select.svelte';
 
-  const factionOptions = SYSTEM_IMPROVEMENTS
-    .filter(improvement => improvement.faction)
-    .map(improvement => improvement.faction);
-
-  let selectedFaction = null;
+  export let faction = null;
+  export let selected = [];
 
   function getFactionReplacements(improvements, faction) {
     const replacements = {};
@@ -37,10 +33,9 @@
 
   $: availableImprovements = filterAvailableImprovements(
     SYSTEM_IMPROVEMENTS,
-    selectedFaction?.value,
+    faction,
   )
 
-  export let selected = [];
 
   function setList(list) {
     selected = list;
@@ -49,22 +44,14 @@
   const filterCommon = (improvements) => improvements.filter(
     improvement => !improvement.faction
   )
+
+  $: console.log('sis imrovement list selected', selected);
 </script>
 
 <ListTab
   items={availableImprovements}
   bind:selected={selected}
 >
-  <div class="faction">
-    <div>Faction:</div>
-    <div class="select">
-      <Select
-        placeholder="Select faction"
-        items={factionOptions}
-        bind:value={selectedFaction}
-      />
-    </div>
-  </div>
   <svelte:fragment slot="actions">
     <Button
       text="Select common"
@@ -72,32 +59,3 @@
     />
   </svelte:fragment>
 </ListTab>
-
-<style>
-  .container {
-    display: flex;
-    align-items: stretch;
-    padding: 1px 0;
-    gap: 1px;
-    flex-direction: column;
-  }
-
-  .faction {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .faction .select {
-    flex: 1;
-  }
-
-  .actions {
-    display: flex;
-    gap: 1px;
-  }
-  .list {
-    display: grid;
-    grid-template-columns: 1fr max-content;
-  }
-</style>
