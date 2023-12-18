@@ -25,7 +25,7 @@
     background: var(--secondary-bg-color);
     color: var(--text-color);
     font-size: 1em;
-    transition: 50ms cubic-bezier(0.445, 0.05, 0.55, 0.95) background-color;
+    transition: var(--bg-transition) background-color;
     cursor: pointer;
     padding: 5px 10px;
   }

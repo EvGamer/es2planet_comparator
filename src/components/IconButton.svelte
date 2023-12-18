@@ -16,7 +16,7 @@
     border: none;
     vertical-align: baseline;
     cursor: pointer;
-    transition: 50ms cubic-bezier(0.445, 0.05, 0.55, 0.95) background-color;
+    transition: var(--bg-transition) background-color;
   }
 
   button:hover {
