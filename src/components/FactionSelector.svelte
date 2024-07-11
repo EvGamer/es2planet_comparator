@@ -1,5 +1,6 @@
 <script>
   import { Faction } from '../constants/faction';
+  import Select from './Select.svelte';
 
   export let faction;
 

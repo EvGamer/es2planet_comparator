@@ -7,6 +7,7 @@
   import Globe from '../components/icons/Globe.svelte';
   import Building from '../components/icons/Building.svelte';
   import { localStorageWriteable } from '../lib/localStorage';
+  import FactionSelector from '../components/FactionSelector.svelte';
 
   const tabs = [
     {
@@ -20,6 +21,9 @@
   ]
 
   let lastPlanetId = 0;
+  let selectedFactionOption = null;
+
+  $: faction = selectedFactionOption?.value;
 
   let comparedPlanets = localStorageWriteable(
     'comparedPlanets', []
@@ -46,6 +50,7 @@
 
 <div class="container">
   <aside class="planet-types">
+    <FactionSelector bind:faction={selectedFactionOption} />
     <h3>Planet types</h3>
     <TabContainer
       tabs={tabs}
@@ -55,6 +60,7 @@
       </TabContent>
       <TabContent id="improvements">
         <SystemImprovementsList
+          faction={faction}
           bind:selected={$systemImprovements}
         />
         <div slot="improvements">Improvements</div>
