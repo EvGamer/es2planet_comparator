@@ -3,7 +3,8 @@ export const BonusType = {
   perPopPerStrategic: "perPopPerStrategic",
   perPlanet: "perPlanet",
   perSystemLevel: "perSystemLevel",
-  systemPercentile: "systemPercentile",
+  perSystemLevelPercentile: "perSystemLevelPercentile",
+  percentile: "percentile",
   planetPercentile: "planetPercentile",
   flat: "flat",
 }

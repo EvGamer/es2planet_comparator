@@ -9,4 +9,5 @@ export const ResourceType = {
   luxury: "luxury",
   tradeValue: "tradeValue",
   maxPopCapacity: "maxPopCapacity",
+  shipCostReduction: "shipCostReduction",
 }
